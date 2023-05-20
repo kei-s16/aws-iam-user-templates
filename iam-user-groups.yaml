@@ -1,0 +1,45 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "IAM User Groups based on AWS Managed Policies that allow to edit their own password and credentials."
+# 自分自身のパスワードやクレデンシャルの編集ができるようにしたAWSマネージドポリシーをベースにしたIAM User Groups。
+
+Parameters:
+  RequireAdministratorsGroup:
+    Type: String
+    AllowedValues:
+      - true
+      - false
+
+Conditions:
+  isRequireAdministratorsGroup:
+    !Equals [true, !Ref RequireAdministratorsGroup]
+
+Resources:
+  PowerUsers:
+    Type: "AWS::IAM::Group"
+    Properties: 
+      GroupName: "POWER-USERS"
+      ManagedPolicyArns: 
+        - "arn:aws:iam::aws:policy/PowerUserAccess"
+        - "arn:aws:iam::aws:policy/IAMReadOnlyAccess"
+        - "arn:aws:iam::aws:policy/IAMUserChangePassword"
+        - "arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials"
+
+  ReadOnlyUsers:
+    Type: "AWS::IAM::Group"
+    Properties: 
+      GroupName: "READ-ONLY-USERS"
+      ManagedPolicyArns: 
+        - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+        - "arn:aws:iam::aws:policy/IAMReadOnlyAccess"
+        - "arn:aws:iam::aws:policy/IAMUserChangePassword"
+        - "arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials"
+
+  Administrators:
+    Condition: isRequireAdministratorsGroup
+    Type: "AWS::IAM::Group"
+    Properties: 
+      GroupName: "ADMINISTRATORS"
+      ManagedPolicyArns: 
+        - "arn:aws:iam::aws:policy/AdministratorAccess"
+
