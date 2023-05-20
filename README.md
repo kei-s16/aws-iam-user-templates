@@ -7,3 +7,7 @@
 ### iam-user-groups.yaml
 普段使いの開発用(POWER-USERS)と確認用(READ-ONLY-USERS)のグループを作成する。  
 任意でAdministratorのグループも作成できる。  
+
+### cloudformation-deploy-role
+CloudFormationでデプロイするときに使うロール。  
+PowerUser + IAMロール・ポリシーの変更権限を持つ(ユーザには触れない)。  
