@@ -43,6 +43,7 @@ Resources:
               - "iam:DeleteRolePermissionsBoundary"
               - "iam:DeleteRolePolicy"
               - "iam:DetachRolePolicy"
+              - "iam:PassRole"
               - "iam:PutRolePermissionsBoundary"
               - "iam:PutRolePolicy"
               - "iam:RemoveRoleFromInstanceProfile"
